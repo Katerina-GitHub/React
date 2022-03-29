@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import "./index.css";
-
+import { Button } from "@mui/material";
+import "./global.css";
 export const MessageList = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([
@@ -16,7 +17,7 @@ export const MessageList = () => {
         ...messages,
         {
           author: "User",
-          message: value,
+          text: value,
           date: new Date().toLocaleDateString(),
         },
       ]);
@@ -33,7 +34,7 @@ export const MessageList = () => {
           ...messages,
           {
             author: "Bot",
-            message: "Hi, this is Bot answer",
+            text: "Hi, this is Bot answer",
             date: new Date().toLocaleDateString(),
           },
         ]);
@@ -52,17 +53,17 @@ export const MessageList = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button value onClick={sendMessage}>
+        <Button value onClick={sendMessage}>
           Отправить
-        </button>
+        </Button>
         {messages.map((msg) => (
           <div>
-            <h1>{msg.author}</h1>
-            <h3>{msg.text}</h3>
-            <h5>{msg.date}</h5>
+            <h1 key={msg.author}>{msg.author}</h1>
+            <h3 key={msg.text}>{msg.text}</h3>
+            <h5 key={msg.date}>{msg.date}</h5>
           </div>
         ))}
       </div>
     </>
   );
-};
+};*/
