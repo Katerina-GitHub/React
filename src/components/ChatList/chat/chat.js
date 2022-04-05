@@ -16,19 +16,15 @@ const useStyles = makeStyles((ctx) => {
   };
 });
 
-export function Chat({ title, selected, handleListItemClick }) {
+export function Chat({ title, selected }) {
   const styles = useStyles();
 
   return (
-    <ListItemButton
-      onClick={handleListItemClick}
-      className={styles.item}
-      selected={selected}
-    >
-      <ListItemText primary={title} className={st.text} />
+    <ListItemButton className={styles.item} selected={selected}>
       <ListItem>
         <AccountCircle fontSize="large" className={st.icon} />
       </ListItem>
+      <ListItemText primary={title} className={st.text} />
     </ListItemButton>
   );
 }
