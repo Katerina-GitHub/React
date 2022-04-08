@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import {
   Button,
   Avatar,
@@ -10,6 +11,7 @@ import {
   AppBar,
 } from "@mui/material";
 import styles from "./Header.module.css";
+import { ThemeContext } from "../../theme-context";
 
 const menu = [
   { title: "Home Page", to: "/" },
@@ -17,6 +19,8 @@ const menu = [
   { title: "Chat", to: "/chat" },
 ];
 export function Header() {
+  const { themeSetter, theme } = useContext(ThemeContext);
+
   return (
     <AppBar position="static" color="primary" className={styles.appBar}>
       <Container maxWidth="xl">
@@ -43,6 +47,9 @@ export function Header() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
+            <button onClick={() => themeSetter("light")}>light</button>
+            <button onClick={() => themeSetter("dark")}>dark</button>
+            <span style={{ color: theme.theme.color }}>{theme.name}</span>
             <IconButton sx={{ p: 0 }}>
               <Avatar />
             </IconButton>
