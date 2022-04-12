@@ -11,7 +11,7 @@ import { Input, InputAdornment } from "@mui/material";
 import { useStyles } from "./use-styles";
 import { Send } from "@mui/icons-material";
 import { Message } from "./message";
-import { sendMessage, messagesSelector } from "../../store/messages";
+import { sendMessageWithBot, messagesSelector } from "../../store/messages";
 import { usePrevios } from "../../hooks/use-previos";
 
 export const MessageList = () => {
@@ -38,7 +38,9 @@ export const MessageList = () => {
   const send = useCallback(
     (message, author = "User") => {
       if (message) {
-        dispatch(sendMessage(roomId, { author: author || "Bot", message }));
+        dispatch(
+          sendMessageWithBot(roomId, { author: author || "Bot", message })
+        );
         setValue("");
       }
     },
@@ -60,7 +62,7 @@ export const MessageList = () => {
       lastMessage.author === "User"
     ) {
       timerId = setTimeout(() => {
-        send("Hello from Bot", "Bot");
+        send("Привет, я Bot", "Bot");
       }, 500);
     }
 
@@ -87,10 +89,7 @@ export const MessageList = () => {
         endAdornment={
           <InputAdornment position="end">
             {value && (
-              <Send
-                className={styles.icon}
-                onClick={() => sendMessage(value)}
-              />
+              <Send className={styles.icon} onClick={() => send(value)} />
             )}
           </InputAdornment>
         }
