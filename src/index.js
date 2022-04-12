@@ -1,17 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { Header } from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Profile, Chat } from "./pages";
+import { CustomThemeProvider } from "./theme-context";
+import { store, persistor } from "./store";
+import "./global.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <CustomThemeProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/" element={<h1>Home page</h1>} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/chat/*" element={<Chat />} />
+              <Route path="*" element={<h1>404 page</h1>} />
+            </Routes>
+          </BrowserRouter>
+        </CustomThemeProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
