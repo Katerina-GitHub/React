@@ -17,6 +17,7 @@ const menu = [
   { title: "Home Page", to: "/" },
   { title: "Profile", to: "/profile" },
   { title: "Chat", to: "/chat" },
+  { title: "Gists", to: "/gists" },
 ];
 export function Header() {
   const { themeSetter, theme } = useContext(ThemeContext);
