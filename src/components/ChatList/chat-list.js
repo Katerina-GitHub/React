@@ -3,25 +3,22 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { List, Button } from "@mui/material";
 import { Chat } from "./chat";
 import {
-  createConversation,
+  createConversationFB,
   deleteConversation,
+  conversationsSelector,
 } from "../../store/conversations";
-
-const selector = (state) => {
-  return state.conversations.conversations;
-};
 
 export function ChatList() {
   const { roomId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate("/chat");
-  const conversations = useSelector(selector);
+  const { conversations, pending } = useSelector(conversationsSelector);
   const create = () => {
     const name = prompt("Введите комнату");
 
     const isValidName = !conversations.includes(name);
     if (!!name && isValidName) {
-      dispatch(createConversation(name));
+      dispatch(createConversationFB(name));
     } else {
       alert("Такая комната уже есть");
     }
@@ -30,18 +27,23 @@ export function ChatList() {
     dispatch(deleteConversation(conversation));
     setTimeout(() => navigate("/chat"));
   };
+  if (pending) {
+    return <h1>выполняется...</h1>;
+  }
   return (
     <List component="nav">
       <Button color="info" onClick={create}>
         Новая комната
       </Button>
       {conversations.map((chat, index) => (
-        <Link key={index} to={`/chat/${chat}`}>
-          <Chat title={chat} selected={roomId === chat} />
+        <div style={{ display: "flex" }} key={index}>
           <Button color="info" onClick={() => deleteConv(chat)}>
-            Удалить комнату
+            УДАЛИТЬ
           </Button>
-        </Link>
+          <Link to={`/chat/${chat}`}>
+            <Chat title={chat} selected={roomId === chat} />
+          </Link>
+        </div>
       ))}
     </List>
   );
